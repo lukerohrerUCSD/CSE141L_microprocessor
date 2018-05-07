@@ -1,0 +1,9 @@
+# Ignore Everything
+*
+
+# Except
+!.gitignore
+!*.s
+!*.sv
+!*.v
+!*.txt
