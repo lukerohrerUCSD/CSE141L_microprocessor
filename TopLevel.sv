@@ -7,8 +7,7 @@
 module TopLevel(
   input start,
   input [7:0] start_addr,
-  input CLK,
-  output halt );
+  input CLK );
 
   // Insruction Fetch Output wires
   wire [7:0] PC;
@@ -41,31 +40,37 @@ module TopLevel(
   wire [7:0] readR6;    //register 6
 
   // ALU Output wires
-  wire OvOutALU;
   wire [7:0] ALUOut;
+  wire zero;
 
   // Data Memory Output wires
   wire [7:0] DataMemOut;
 
-  // Pattern Output Wire
-  wire PatrOut;
+  // Shift Output wires
+  wire [7:0] shiftOut;
 
-  // Overflow Register Input & Output wire
-  wire OvInputMuxData;
-  wire ovOut;
+  // BranchMux1 Output wire
+  wire brMux1Data;
 
-  // Intruction Count Register
-  logic [15:0] InstrCount;
+  // BranchMux2 Output wire
+  wire brMux2Data;
+
+  // CpyMux Output wire
+  wire cpyMuxData;
+
+  // ShiftALUMux Output wire
+  wire shiftALUMuxData;
+
+  // WriteMux Ouput wire
+  wire writeMuxData;
 
   // IF Module Instance
   IF IF_module (
     .CLK(CLK),
     .Start(start),
     .Start_Addr(start_addr),
-    .Halt(halt),
-    .Branch(Branch),
-    .BranchCond(BranchCond & !ovOut),
-    .Offset(ReadR0),
+    .Branch(branch),
+    .Zero(zero),
     .PC(PC)
   );
 
@@ -77,102 +82,103 @@ module TopLevel(
   // Control Module Instance
   Control Control_module(
     .Opcode(InstrOut[8:6]),
-    .Funct(InstrOut[2:0]),
     .ALUOp(ALUOp),
-    .RegWrite(RegWrite),
-    .ClearReg(ClearReg),
-    .IncReg(IncReg),
-    .OvToReg(OvToReg),
-    .LoadImm(LoadImm),
-    .WriteValSel(WriteValSel),
-    .MemRead(MemRead),
-    .MemWrite(MemWrite),
-    .OvSel(OvSel),
-    .OvWrite(OvWrite),
-    .Branch(Branch),
-    .BranchCond(BranchCond),
-    .Halt(halt)
+    .Branc(branch),
+    .Load(load),
+    .Shift(shift),
+    .Copy(copy),
+    .ReadMem(readMem),
+    .WriteMem(writeMem),
+    .WriteReg(writeReg),
   );
 
   // Register File Module Instance
   regFile regFile_module(
     .CLK(CLK),
-    .RegWrite(RegWrite),
-    .ClearReg(ClearReg),
-    .IncReg(IncReg),
-    .OvToReg(OvToReg),
-    .LoadImm(LoadImm),
-    .srcA(InstrOut[5:3]),
-    .srcB(InstrOut[2:0]),
-    .writeReg(InstrOut[5:3]),
+    .WriteReg(writeReg),
+    .Reg1(InstrOut[5:3]),
+    .Reg2(InstrOut[2:0]),
+    .WriteReg(InstrOut[5:3]),
     .writeValue(regFileWriteData),
-    .ovValue(ovOut),
-    .ReadA(ReadA),
-    .ReadB(ReadB),
-    .ReadR0(ReadR0),
-    .ReadR6(ReadR6)
+    .ReadReg1(readReg1),
+    .ReadReg2(readReg2),
+    .ReadR0(readR0),
+    .ReadR1(readR1),
+    .ReadR6(readR6)
+  );
+
+  // BranhcMux1 Module Instance
+  BranchMux1 BranchMux1_module (
+    .Source1(readR0),
+    .Source2(readReg1),
+    .Branch(branch),
+    .BrMux1(brMux1Data)
+  );
+
+  // BranhcMux2 Module Instance
+  BranchMux2 BranchMux1_module (
+    .Source1(readR1),
+    .Source2(readReg2),
+    .Branch(branch),
+    .BrMux2(brMux2Data)
+  );
+  
+  // CopyMux Module Instance
+  CopyMux CopyMux_module (
+    .Source1(brMux2Data),
+    .Source2(8b'00000000),
+    .Copy(copy),
+    .CpyMux(cpyMuxData)
   );
 
   // ALU Module Instance
   ALU ALU_module (
     .ALUOp(ALUOp),
-    .ALUSrcA(ReadA),
-    .ALUSrcB(ReadB),
-    .ALUSrcC(ReadR6),
+    .ALUSrcA(brMux1Data),
+    .ALUSrcB(cpyMuxData),
     .Result(ALUOut),
-    .OvOutALU(OvOutALU)
-  );
-
-  // Plumbing Module for Overflow Register Data Input
-  OvInputMux OvInputMux_module (
-    .OvSel(OvSel),
-    .CLSBOv(ReadA[0]),
-    .PatrOut(PatrOut),
-    .OvOutALU(OvOutALU),
-    .OvInputMuxData(OvInputMuxData)
-  );
-
-  // Overflow 1-Bit Register Module Instance
-  OvReg OvReg_module(
-    .CLK,
-    .OvWrite(OvWrite),
-    .dataIn(OvInputMuxData),
-    .ovOut(ovOut)
-  );
-
-  // Patter Check Module Instance
-  Patr Patr_module(
-    .PatrSrcA(ReadA),
-    .PatrSrcB(ReadR0),
-    .PatrOut(PatrOut)
+    .Zero(zero)
   );
 
   // Data Memory Module Instance
   DataRAM DataRAM_module(
     .CLK(CLK),
-    .MemRead(MemRead),
-    .MemWrite(MemWrite),
-    .DataSrcA(ReadA),
-    .DataSrcB(ReadR0),
-    .DataMemOut(DataMemOut)
+    .MemRead(readMem),
+    .MemWrite(writeMem),
+    .DataSrcA(readReg1),
+    .DataMemOut(DataMemOut),
+    .Address(readR6)
   );
 
-  // Plumbing Module for Register File Write Data Input
-  regFileWriteDataMux regFileWriteDataMux_module (
-    .WriteValSel(WriteValSel),
-    .Result(ALUOut),
-    //.UImmediate({2'b00, InstrOut[5:0]}),
-    .UImmediate({2'b00, InstrOut[5:0]}),
-    .DataMemOut(DataMemOut),
-    .regFileWriteData(regFileWriteData)
+  // Shift Module Instance
+  Shift Shift_module(
+    .Shift(shift),
+    .Result(shiftOut),
+    .Source(readReg1),
   );
+
+  // ShiftALUMux Module Instance
+  ShiftALUMux ShiftALUMux_module(
+    .Source1(shiftOut),
+    .Source2(ALUOut),
+    .Shift(shift),
+    .ShiftALUMux(shiftALUMuxData)
+  );
+
+  // WriteMux Module Instance
+  WriteMux WriteMux_module(
+    .Source1(),
+    .Sourec2(),
+    .RegWrite(regWrite),
+    .WriteMux(writeMuxData)
+  );
+
 
   always@(posedge CLK)
   if (start == 1)
       InstrCount <= 0;
-  else if(start == 0 && halt != 1)
+  else 
     InstrCount <= InstrCount+16'd1;
-  else
-    InstrCount <= InstrCount;
+
 
 endmodule
