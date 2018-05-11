@@ -122,7 +122,7 @@ module TopLevel(
     .Branch(branch),
     .BrMux2(brMux2Data)
   );
-  
+
   // CopyMux Module Instance
   CopyMux CopyMux_module (
     .Source1(brMux2Data),
@@ -167,8 +167,8 @@ module TopLevel(
 
   // WriteMux Module Instance
   WriteMux WriteMux_module(
-    .Source1(),
-    .Sourec2(),
+    .Source1(shiftALUMuxData),
+    .Sourec2(DataMemOut),
     .RegWrite(regWrite),
     .WriteMux(writeMuxData)
   );
@@ -177,7 +177,7 @@ module TopLevel(
   always@(posedge CLK)
   if (start == 1)
       InstrCount <= 0;
-  else 
+  else
     InstrCount <= InstrCount+16'd1;
 
 
