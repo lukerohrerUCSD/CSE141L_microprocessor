@@ -1,7 +1,7 @@
 /* Filename: TopLevel.sv
- * Authors: Moiz Qureshi, Ye Huang, Eduardo Rosales
- * Date: 11/15/16
- * Description: This file contains the the TopLevel for Beeth9 Implementation
+ * Authors: Luke Rohrer
+ * Date: 5/9/18
+ * Description: This file contains the the TopLevel for PIMP Implementation
 */
 
 module TopLevel(
@@ -32,6 +32,7 @@ module TopLevel(
   // Register File Input & Output Wires
   wire [2:0] reg1;      //in
   wire [2:0] reg2;      //in
+  wire [2:0] regW;      //in
   wire [7:0] writeData; //in
   wire [7:0] readReg1;
   wire [7:0] readReg2;
@@ -74,6 +75,7 @@ module TopLevel(
     .PC(PC)
   );
 
+  // InstrRom Module Instance
   InstrROM InstrROM_module (
     .InstrAddress(PC),
     .InstrOut(InstrOut)
