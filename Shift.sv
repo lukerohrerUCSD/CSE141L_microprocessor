@@ -9,7 +9,7 @@ module OvInputMux (
   input CLSBOv,                   // Input 0 - CLSBOv
   input PatrOut,                  // Input 1 - PatrOut
   input OvOutALU,                 // Input 2 - OvOutputALU
-  output logic OvInputMuxData     // Output 
+  output logic OvInputMuxData     // Output
   );
 
   // Always do this Combinationally

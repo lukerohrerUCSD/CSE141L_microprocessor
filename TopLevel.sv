@@ -166,15 +166,15 @@ module TopLevel(
     .Source1(shiftOut),
     .Source2(ALUOut),
     .Shift(shift),
-    .ShiftALUMux(shiftALUMuxData)
+    .SAMux(shiftALUMuxData)
   );
 
   // WriteMux Module Instance
   WriteMux WriteMux_module(
     .Source1(shiftALUMuxData),
-    .Sourec2(DataMemOut),
+    .Source2(DataMemOut),
     .Load(load),
-    .WriteMux(writeMuxData)
+    .WMux(writeMuxData)
   );
 
 

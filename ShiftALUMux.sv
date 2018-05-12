@@ -1,33 +1,26 @@
-/* Filename: OvInputMux.sv
- * Authors: Moiz Qureshi, Ye Huang, Eduardo Rosales
- * Date: 11/15/16
- * Description: This file contains the the plumbing module for Overflow Input Mux
+/* Filename: ShiftALUMux.sv
+ * Authors: Luke Rohrer, Max Zhao, Josh Robertson
+ * Date: 5/11/18
+ * Description: This file contains the the plumbing module for ShiftALUMux
 */
 
-module OvInputMux (
-  input [1:0] OvSel,              // 2-bit Select line or OvInputMux
-  input CLSBOv,                   // Input 0 - CLSBOv
-  input PatrOut,                  // Input 1 - PatrOut
-  input OvOutALU,                 // Input 2 - OvOutputALU
-  output logic OvInputMuxData     // Output 
+module ShiftALUMux (
+  input [7:0] Source1,
+  input [7:0] Source2,
+  input Shift,
+  output logic [7:0] SAMux
   );
 
   // Always do this Combinationally
   always_comb begin
-    case(OvSel)
-      // Select CLSBOv
-      0 : OvInputMuxData = CLSBOv;
+    case(Shift)
 
-      // Select PatrOut
-      1 : OvInputMuxData = PatrOut;
+      // Select Source1 (SAMux)
+      0 : SAMux = Source1;
 
-      // Select OvOutALU
-      2 : OvInputMuxData = OvOutALU;
+      // Select Source2 (DataMemOut)
+      1 : SAMux = Source2;
 
-      // Default Case - Do Nothing
-      default: begin
-      OvInputMuxData = 1'b0;
-      end
     endcase
   end
 endmodule
