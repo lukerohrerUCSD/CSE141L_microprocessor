@@ -1,33 +1,26 @@
-/* Filename: OvInputMux.sv
- * Authors: Moiz Qureshi, Ye Huang, Eduardo Rosales
- * Date: 11/15/16
- * Description: This file contains the the plumbing module for Overflow Input Mux
+/* Filename: CopyMux.sv
+ * Authors: Luke Rohrer, Max Zhao, Josh Robertson
+ * Date: 5/11/18
+ * Description: This file contains the the plumbing module for CopyMux
 */
 
-module OvInputMux (
-  input [1:0] OvSel,              // 2-bit Select line or OvInputMux
-  input CLSBOv,                   // Input 0 - CLSBOv
-  input PatrOut,                  // Input 1 - PatrOut
-  input OvOutALU,                 // Input 2 - OvOutputALU
-  output logic OvInputMuxData     // Output 
+module CopyMux (
+  input [7:0] Source1,
+  input [7:0] Source2,
+  input Copy,
+  output logic [7:0] CpyMux
   );
 
   // Always do this Combinationally
   always_comb begin
-    case(OvSel)
-      // Select CLSBOv
-      0 : OvInputMuxData = CLSBOv;
+    case(Copy)
 
-      // Select PatrOut
-      1 : OvInputMuxData = PatrOut;
+      // Select Source2 (BrMux2)
+      0 : CpyMux = Source2;
 
-      // Select OvOutALU
-      2 : OvInputMuxData = OvOutALU;
+      // Select Source1 (0)
+      1 : CpyMux = Source1;
 
-      // Default Case - Do Nothing
-      default: begin
-      OvInputMuxData = 1'b0;
-      end
     endcase
   end
 endmodule
