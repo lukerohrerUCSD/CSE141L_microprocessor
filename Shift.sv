@@ -1,17 +1,19 @@
 /* Filename: OvInputMux.sv
- * Authors: Moiz Qureshi, Ye Huang, Eduardo Rosales
- * Date: 11/15/16
+ * Authors: Luke Rohrer, Max Zhao, Josh Robertson
+ * Date: 5/11/18
  * Description: This file contains the the plumbing module for Overflow Input Mux
 */
 
 module OvInputMux (
-  input [1:0] OvSel,              // 2-bit Select line or OvInputMux
-  input CLSBOv,                   // Input 0 - CLSBOv
-  input PatrOut,                  // Input 1 - PatrOut
-  input OvOutALU,                 // Input 2 - OvOutputALU
-  output logic OvInputMuxData     // Output
+  input Shift,                      // Input 1 - Shift
+  input readReg1,                   // Read Register
+  input [2:0] Shamt,               
+  output Result
+
+
   );
 
+  /*
   // Always do this Combinationally
   always_comb begin
     case(OvSel)
@@ -30,4 +32,5 @@ module OvInputMux (
       end
     endcase
   end
+  */
 endmodule
