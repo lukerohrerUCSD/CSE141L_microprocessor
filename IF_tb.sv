@@ -1,6 +1,6 @@
 /* Filename: IF_tb.sv
- * Authors: Moiz Qureshi, Ye Huang, Eduardo Rosales
- * Date: 10/26/16
+ * Authors: Luke Rohrer, Max Zhao, Josh Robertson
+ * Date: 5/11/18
  * Description: This file defines the testbench for IF module
 */
 

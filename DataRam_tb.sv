@@ -1,6 +1,6 @@
 /* Filename: DataRam_tb.sv
- * Authors: Moiz Qureshi, Ye Huang, Eduardo Rosales
- * Date: 11/17/16
+ * Authors: Luke Rohrer, Max Zhao, Josh Robertson
+ * Date: 5/11/18
  * Description: This file defines the test bench for the DataRam file module
  */
 
