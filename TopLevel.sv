@@ -72,6 +72,7 @@ module TopLevel(
     .Start_Addr(start_addr),
     .Branch(branch),
     .Zero(zero),
+    .Offset(InstrOut[5:0]),
     .PC(PC)
   );
 
@@ -85,7 +86,7 @@ module TopLevel(
   Control Control_module(
     .Opcode(InstrOut[8:6]),
     .ALUOp(ALUOp),
-    .Branc(branch),
+    .Branch(branch),
     .Load(load),
     .Shift(shift),
     .Copy(copy),
@@ -100,8 +101,8 @@ module TopLevel(
     .WriteReg(writeReg),
     .Reg1(InstrOut[5:3]),
     .Reg2(InstrOut[2:0]),
-    .WriteReg(InstrOut[5:3]),
-    .writeValue(regFileWriteData),
+    .WReg(InstrOut[5:3]),
+    .WriteValue(regFileWriteData),
     .ReadReg1(readReg1),
     .ReadReg2(readReg2),
     .ReadR0(readR0),
@@ -109,7 +110,7 @@ module TopLevel(
     .ReadR6(readR6)
   );
 
-  // BranhcMux1 Module Instance
+  // BranchMux1 Module Instance
   BranchMux1 BranchMux1_module (
     .Source1(readR0),
     .Source2(readReg1),
@@ -117,7 +118,7 @@ module TopLevel(
     .BrMux1(brMux1Data)
   );
 
-  // BranhcMux2 Module Instance
+  // BranchMux2 Module Instance
   BranchMux2 BranchMux1_module (
     .Source1(readR1),
     .Source2(readReg2),
@@ -147,7 +148,7 @@ module TopLevel(
     .CLK(CLK),
     .MemRead(readMem),
     .MemWrite(writeMem),
-    .DataSrcA(readReg1),
+    .DataSrc(readReg1),
     .DataMemOut(DataMemOut),
     .Address(readR6)
   );
@@ -157,6 +158,7 @@ module TopLevel(
     .Shift(shift),
     .Result(shiftOut),
     .Source(readReg1),
+    .Shamt(InstrOut[2:0])
   );
 
   // ShiftALUMux Module Instance
@@ -171,7 +173,7 @@ module TopLevel(
   WriteMux WriteMux_module(
     .Source1(shiftALUMuxData),
     .Sourec2(DataMemOut),
-    .RegWrite(regWrite),
+    .Load(load),
     .WriteMux(writeMuxData)
   );
 
