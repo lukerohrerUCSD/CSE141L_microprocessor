@@ -8,10 +8,10 @@ import definitions::*;
 
 module Control (
   input [2:0] Opcode,               // 3 bits inputs for Opcode
-
+  
   output logic branch               // 1 bit control for branch
   output logic load                 // 1 bit control for loading from memory
-  output logic shift                // 1 bit control for shifting
+  output logic shift                // 1 bit control for shifting 
   output logic MemR                 // 1 bit control for memory read
   output logic copy                 // 1 bit control for copying
   output logic ALUOp [1:0]          // 2 bit control for ALU Operation
@@ -31,7 +31,7 @@ module Control (
             ALUOp = 0;
             RegW = 0;
           end
-
+          
           //load byte (lb)
           1 : begin
             branch = 0;
@@ -108,5 +108,7 @@ module Control (
             ALUOp = 3;
             RegW = 0;
           end
-      end
+      endcase
+  end
 endmodule
+

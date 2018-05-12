@@ -1,36 +1,26 @@
-/* Filename: OvInputMux.sv
+/* Filename: Shift.sv
  * Authors: Luke Rohrer, Max Zhao, Josh Robertson
  * Date: 5/11/18
- * Description: This file contains the the plumbing module for Overflow Input Mux
+ * Description: This file contains the logic for the shift module
 */
 
-module OvInputMux (
-  input Shift,                      // Input 1 - Shift
-  input readReg1,                   // Read Register
-  input [2:0] Shamt,               
-  output Result
-
-
+module Shift (
+  input [7:0] source,              // 8-bit input
+  input shift,                    // Control Signal to shift or not
+  output logic [7:0] result       // Output 
   );
 
-  /*
-  // Always do this Combinationally
   always_comb begin
-    case(OvSel)
-      // Select CLSBOv
-      0 : OvInputMuxData = CLSBOv;
+      case(shift)
+          //do nothing if 0
+          0 : begin
+            result = source;
+          end
 
-      // Select PatrOut
-      1 : OvInputMuxData = PatrOut;
-
-      // Select OvOutALU
-      2 : OvInputMuxData = OvOutALU;
-
-      // Default Case - Do Nothing
-      default: begin
-      OvInputMuxData = 1'b0;
-      end
-    endcase
+          // shift if 1
+          1 : begin
+            result = source << 1;
+          end
+      endcase
   end
-  */
 endmodule
