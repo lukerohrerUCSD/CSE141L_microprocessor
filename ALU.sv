@@ -1,25 +1,50 @@
 /* Filename: ALU.sv
- * Authors: Moiz Qureshi, Ye Huang, Eduardo Rosales
- * Date: 10/26/16
- * Description: This file is for the ALU Module
+ * Authors: Luke Rohrer, Max Zhao, Josh Robertson
+ * Date: 5/11/18
+ * Description: ALU Module
 */
 
 import definitions::*;
 module ALU(
-  input [3:0] ALUOp,            // 4 bits input for ALUOp
+  input [1:0] ALUOp,            // 4 bits input for ALUOp
   input [7:0] ALUSrcA,          // 8 bits data input for ALUSrcA
   input [7:0] ALUSrcB,          // 8 bits data input for ALUSrcB
-  input [7:0] ALUSrcC,          // 8 bits data input for ALUSrcC
+//  input [7:0] ALUSrcC,          // 8 bits data input for ALUSrcC
 
-  output logic OvOutALU,        // 1 bit Overflow/CarryOut data outut
+//  output logic OvOutALU,        // 1 bit Overflow/CarryOut data outut
   output logic [7:0] Result     // 8 bits Result from ALU data output
 );
 
-  ALUOp_mne op_name;            // ALU Operation Menmonic
+//  ALUOp_mne op_name;            // ALU Operation Menmonic
 
   logic [8:0] tempResult;       // 9 bit Temp Result (used to capture overflow)
 
   always_comb begin
+      case(ALUOp)
+          //Bitwise And Operation
+          0 : begin
+            Result = ALUSrcA & ALUSrcB;
+          end
+
+          //Add Operation (unsigned)
+          1 : begin
+            Result = ALUSrcA + ALUSrcB;
+          end
+
+          //XOR Operation
+          2 : begin
+            Result = ALUSrcA ^ ALUSrcB;
+          end
+
+          //Subtraction Operation (unsigned)
+          3 : begin
+            Result = ALUSrcA - ALUSrcB;
+          end
+    endcase
+endmodule
+
+
+/*  always_comb begin
     case(ALUOp)
       // ALU Add Operation (unsigned)
       kADD : begin
@@ -112,3 +137,4 @@ module ALU(
   end
 
 endmodule
+*/
