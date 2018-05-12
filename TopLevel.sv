@@ -1,5 +1,5 @@
 /* Filename: TopLevel.sv
- * Authors: Luke Rohrer
+ * Authors: Luke Rohrer, Max Zhao, Josh Robertson
  * Date: 5/9/18
  * Description: This file contains the the TopLevel for PIMP Implementation
 */
