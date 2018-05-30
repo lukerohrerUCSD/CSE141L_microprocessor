@@ -32,7 +32,7 @@ module TopLevel_tb;
     //start_addr = 8'd75;
 
     // For testing Program19.s
-    start_addr = 8'd104;
+    start_addr = 8'd000;
 
     #10ns;
     start = 0;

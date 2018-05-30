@@ -20,7 +20,7 @@ module DataRAM (DataSrc, Address, DataMemOut, MemRead, MemWrite, CLK);
   initial begin
     //$readmemb("ram_init.txt", my_memory);
     // For Program19 test case of evenly spaced out
-    $readmemb("ram_init_p19.txt", my_memory);
+    $readmemb("ram_init.txt", my_memory);
   end
 
   // Check MemReadm, if asserted then read out data from memory

@@ -14,7 +14,7 @@ module InstrROM (
 
   // Load up Instruction ROM with Machine Code produced from Beeth9Asm
   initial begin
-    $readmemb("Beeth9MachineCode.txt", instr_memory);
+    $readmemb("encodeMachine.txt", instr_memory);
   end
 
   // Combinational read output for instruction
