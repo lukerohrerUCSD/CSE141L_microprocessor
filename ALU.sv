@@ -11,8 +11,8 @@ module ALU(
 //  input [7:0] ALUSrcC,          // 8 bits data input for ALUSrcC
 
 //  output logic OvOutALU,        // 1 bit Overflow/CarryOut data outut
-  output logic [7:0] Result     // 8 bits Result from ALU data output
-  output logic [1:0] Zero	// 1 bit output 
+  output logic [7:0] Result,     // 8 bits Result from ALU data output
+  output logic Zero	// 1 bit output 
 );
 
 //  ALUOp_mne op_name;            // ALU Operation Menmonic

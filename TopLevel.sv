@@ -65,6 +65,9 @@ module TopLevel(
   // WriteMux Ouput wire
   wire [7:0] writeMuxData;
 
+  // Instruction Counter
+  logic [15:0] InstrCount;
+
   // IF Module Instance
   IF IF_module (
     .CLK(CLK),
@@ -75,7 +78,6 @@ module TopLevel(
     .Offset(InstrOut[5:0]),
     .PC(PC)
   );
-
   // InstrRom Module Instance
   InstrROM InstrROM_module (
     .InstrAddress(PC),
@@ -178,11 +180,11 @@ module TopLevel(
   );
 
 
-  //always@(posedge CLK)
-  //if (start == 1)
-     // InstrCount <= 0;
-  //else
-   // InstrCount <= InstrCount+16'd1;
+  always@(posedge CLK)
+  if (start == 1)
+      InstrCount <= 0;
+  else
+      InstrCount <= InstrCount+16'd1;
 
 
 endmodule

@@ -5,21 +5,22 @@
 */
 
 module Shift (
-  input [7:0] source,              // 8-bit input
-  input shift,                    // Control Signal to shift or not
-  output logic [7:0] result       // Output 
+  input [7:0] Source,              // 8-bit input
+  input Shift,                    // Control Signal to shift or not
+  input [2:0] Shamt,
+  output logic [7:0] Result       // Output 
   );
 
   always_comb begin
-      case(shift)
+      case(Shift)
           //do nothing if 0
           0 : begin
-            result = source;
+            Result = Source;
           end
 
           // shift if 1
           1 : begin
-            result = source << 1;
+            Result = Source << 1;
           end
       endcase
   end
