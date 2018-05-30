@@ -1,0 +1,192 @@
+cpy $t6 $t7
+sl $t6 L 3
+sl $t6 L 3
+cpy $t0 $t7
+cpy $t1 $t0
+sl $t1 L 1
+add $t1 $t7
+cpy $t2 $t1
+sl $t2 L 1
+add $t2 $t7
+cpy $t3 $t2
+sl $t3 L 1
+add $t3 $t7
+cpy $t4 $t3
+sl $t4 L 1
+add $t4 $t7
+cpy $t5 $t2
+sl $t5 L 3
+sl $t5 L 2
+add $t5 $t7
+sb $t5 $t6
+add $t6 $t7
+cpy $t5 $t1
+sl $t5 L 2
+add $t5 $t7
+sl $t5 L 2
+add $t5 $t7
+sl $t5 L 2
+sb $t5 $t6
+add $t6 $t7
+cpy $t5 $t1
+sl $t5 L 2
+sl $t5 L 2
+add $t5 $t7
+sl $t5 L 1
+add $t5 $t7
+sl $t5 L 1
+sb $t5 $t6
+add $t6 $t7
+cpy $t5 $t0
+sl $t5 L 2
+sl $t5 L 2
+add $t5 $t2
+sl $t5 L 3
+sb $t5 $t6
+add $t6 $t7
+cpy $t5 $t0
+sl $t5 L 3
+add $t5 $t1
+sl $t5 L 2
+add $t5 $t7
+sl $t5 L 2
+sb $t5 $t6
+add $t6 $t7
+sl $t5 R 3
+sl $t5 L 2
+add $t5 $t7
+sl $t5 L 1
+sb $t5 $t6
+add $t6 $t7
+cpy $t5 $t4
+sl $t5 L 2
+add $t5 $t7
+sl $t5 L 1
+sb $t5 $t6
+add $t6 $t7
+cpy $t5 $t3
+sl $t5 L 3
+add $t5 $t7
+sl $t5 L 1
+add $t5 $t7
+sb $t5 $t6
+cpy $t6 $t7
+sl $t6 R 1
+cpy $t0 $t6
+cpy $t3 $t7
+sl $t3 L 3
+cpy $t2 $t3
+cpy $t1 $t3
+cpy $t4 $t2
+sl $t4 L 2
+sl $t3 L 3
+add $t3 $t2
+cpy $t5 $t3
+lb $t2 $t6
+xor $t2 $t4
+cpy $t0 $t6
+cpy $t6 $t3
+sb $t2 $t6
+add $t0 $t7
+add $t3 $t7
+cpy $t6 $t0
+bne 010101  back to line 85
+cpy $t6 $t5
+lb $t2 $t6
+cpy $t3 $t7
+sl $t3 L 3
+add $t6 $t3
+cpy $t0 $t7
+sl $t0 R 1
+sb $t2 $t6
+add $t0 $t7
+add $t6 $t7
+bne 100101  back to line 101
+cpy $t2 $t7
+sl $t2 L 1
+add $t2 $t7
+sl $t2 L 1
+add $t2 $t7
+sl $t2 L 1
+add $t2 $t7
+sl $t2 L 1
+add $t2 $t7
+sl $t2 L 1
+add $t2 $t7
+sl $t2 L 1
+add $t2 $t7
+sb $t2 $t6  *
+cpy $t0 $t7
+sl $t0 L 3
+cpy $t6 $t0
+sl $t6 L 2
+add $t6 $t1
+add $t6 $t7
+lb $t1 $t6
+add $t6 $t7
+lb $t5 $t6
+add $t6 $t7
+lb $t4 $t6
+add $t6 $t7
+lb $t2 $t6
+xor $t2 $t4
+cpy $t3 $t6
+cpy $t6 $t7
+sl $t6 L 3
+sl $t6 L 3
+add $t6 $t0
+sb $t2 $t6
+cpy $t6 $t3
+cpy $t3 $t4
+and $t3 $t5
+cpy $t2 $t3
+sl $t2 R 2
+sl $t2 R 2
+xor $t3 $t2
+cpy $t2 $t3
+sl $t2 R 2
+xor $t3 $t2
+cpy $t2 $t3
+sl $t2 R 1
+xor $t3 $t2
+and $t3 $t7
+sl $t4 L 1
+add $t4 $t3
+add $t0 $t7
+bne 001100
+cpy $t2 $t7
+sl $t2 L 3
+cpy $t6 $t2
+sl $t6 L 2
+add $t6 $t2
+add $t6 $t7
+add $t1 $t6
+cpy $t6 $t7
+sl $t6 R 1
+lb $t2 $t6
+xor $t2 $t4
+cpy $t3 $t6
+cpy $t6 $t7
+sl $t6 L 3
+sl $t6 L 3
+add $t6 $t0
+sb $t2 $t6
+cpy $t6 $t3
+add $t6 $t7
+cpy $t3 $t4
+and $t3 $t5
+cpy $t2 $t3
+sl $t2 R 2
+sl $t2 R 2
+xor $t3 $t2
+cpy $t2 $t3
+sl $t2 R 2
+xor $t3	$t2
+cpy $t2 $t3
+sl $t2 R 1
+xor $t3 $t2
+and $t3 $t7
+sl $t4 L 1
+add $t4 $t3
+add $t0 $t7
+bne 101111

@@ -1,0 +1,117 @@
+cpy $t0 $t7
+sl $t0 L 3
+cpy $t6 $t0
+sl $t6 L 2
+add $t6 $t1
+add $t6 $t7
+lb $t1 $t6
+add $t6 $t7
+lb $t5 $t6
+add $t6 $t7
+lb $t4 $t6
+add $t6 $t7
+lb $t2 $t6
+xor $t2 $t4
+cpy $t3 $t6
+cpy $t6 $t7
+sl $t6 L 3
+sl $t6 L 3
+add $t6 $t0
+sb $t2 $t6
+cpy $t6 $t3
+cpy $t3 $t4
+and $t3 $t5
+cpy $t2 $t3
+sl $t2 R 2
+sl $t2 R 2
+xor $t3 $t2
+cpy $t2 $t3
+sl $t2 R 2
+xor $t3 $t2
+cpy $t2 $t3
+sl $t2 R 1
+xor $t3 $t2
+and $t3 $t7
+sl $t4 L 1
+add $t4 $t3
+add $t0 $t7
+bne 001100  back to line 12
+cpy $t2 $t7
+sl $t2 L 3
+cpy $t6 $t2
+sl $t6 L 2
+add $t6 $t2
+add $t6 $t7
+add $t1 $t6
+cpy $t6 $t7
+sl $t6 R 1
+lb $t2 $t6
+xor $t2 $t4
+cpy $t3 $t6
+cpy $t6 $t7
+sl $t6 L 3
+sl $t6 L 3
+add $t6 $t0
+sb $t2 $t6
+cpy $t6 $t3
+add $t6 $t7
+cpy $t3 $t4
+and $t3 $t5
+cpy $t2 $t3
+sl $t2 R 2
+sl $t2 R 2
+xor $t3 $t2
+cpy $t2 $t3
+sl $t2 R 2
+xor $t3	$t2
+cpy $t2 $t3
+sl $t2 R 1
+xor $t3 $t2
+and $t3 $t7
+sl $t4 L 1
+add $t4 $t3
+add $t0 $t7
+bne 101111  back to line 47*
+cpy $t1 $t7
+cpy $t2 $t7
+sl $t2 L 1
+add $t1 $t2
+sl $t2 L 1
+cpy $t6 $t2
+add $t1 $t2
+sl $t2 L 1
+add $t6 $t2
+add $t1 $t2
+sl $t2 L 1
+add $t1 $t2
+sl $t2 L 1
+add $t6 $t2
+add $t1 $t2
+sl $t2 L 1
+add $t1 $t2
+lb $t2 $t6
+xor $t2 $t4
+cpy $t3 $t6
+cpy $t6 $t7
+sl $t6 L 3
+sl $t6 L 3
+add $t6 $t0
+sb $t2 $t6
+cpy $t6 $t3
+cpy $t3 $t4
+and $t3 $t5
+cpy $t2 $t3
+sl $t2 R 2
+sl $t2 R 2
+xor $t3 $t2
+cpy $t2 $t3
+sl $t2 R 2
+xor $t3	$t2
+cpy $t2 $t3
+sl $t2 R 1
+xor $t3 $t2
+and $t3 $t7
+sl $t4 L 1
+add $t4 $t3
+add $t0 $t7
+bne 011011  back to line 91
