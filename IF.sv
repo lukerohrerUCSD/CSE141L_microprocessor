@@ -10,7 +10,7 @@ module IF(
 	input logic[7:0] Start_Addr,		// 8 bit value representing instruction start address
 	input Branch,										// Branch control signal (non-conditional)
 	input Zero, 										// Zero input
-	input [5:0] Offset 									// Shift offset
+	input [5:0] Offset, 									// Shift offset
 
 	output logic [7:0] PC						// 8 bit data output value for program counter
   );

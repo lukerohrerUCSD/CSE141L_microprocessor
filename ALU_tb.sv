@@ -3,8 +3,7 @@
  * Date: 5/11/18
  * Description: This file defines the testbench for the ALU Module
 */
-
-import definitions::*;
+/*
 module ALU_tb;
 
   // DUT Input Drivers
@@ -117,3 +116,4 @@ module ALU_tb;
   end
 
 endmodule
+*/

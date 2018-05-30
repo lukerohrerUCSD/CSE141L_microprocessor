@@ -51,19 +51,19 @@ module TopLevel(
   wire [7:0] shiftOut;
 
   // BranchMux1 Output wire
-  wire brMux1Data;
+  wire [7:0] brMux1Data;
 
   // BranchMux2 Output wire
-  wire brMux2Data;
+  wire [7:0] brMux2Data;
 
   // CpyMux Output wire
-  wire cpyMuxData;
+  wire [7:0] cpyMuxData;
 
   // ShiftALUMux Output wire
-  wire shiftALUMuxData;
+  wire [7:0] shiftALUMuxData;
 
   // WriteMux Ouput wire
-  wire writeMuxData;
+  wire [7:0] writeMuxData;
 
   // IF Module Instance
   IF IF_module (
@@ -92,7 +92,7 @@ module TopLevel(
     .Copy(copy),
     .ReadMem(readMem),
     .WriteMem(writeMem),
-    .WriteReg(writeReg),
+    .WriteReg(writeReg)
   );
 
   // Register File Module Instance
@@ -102,7 +102,7 @@ module TopLevel(
     .Reg1(InstrOut[5:3]),
     .Reg2(InstrOut[2:0]),
     .WReg(InstrOut[5:3]),
-    .WriteValue(regFileWriteData),
+    .WriteValue(writeData),
     .ReadReg1(readReg1),
     .ReadReg2(readReg2),
     .ReadR0(readR0),
@@ -119,7 +119,7 @@ module TopLevel(
   );
 
   // BranchMux2 Module Instance
-  BranchMux2 BranchMux1_module (
+  BranchMux2 BranchMux2_module (
     .Source1(readR1),
     .Source2(readReg2),
     .Branch(branch),
@@ -129,7 +129,7 @@ module TopLevel(
   // CopyMux Module Instance
   CopyMux CopyMux_module (
     .Source1(brMux2Data),
-    .Source2(8b'00000000),
+    .Source2(8'b00000000),
     .Copy(copy),
     .CpyMux(cpyMuxData)
   );
@@ -178,11 +178,11 @@ module TopLevel(
   );
 
 
-  always@(posedge CLK)
-  if (start == 1)
-      InstrCount <= 0;
-  else
-    InstrCount <= InstrCount+16'd1;
+  //always@(posedge CLK)
+  //if (start == 1)
+     // InstrCount <= 0;
+  //else
+   // InstrCount <= InstrCount+16'd1;
 
 
 endmodule

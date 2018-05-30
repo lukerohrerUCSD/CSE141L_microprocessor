@@ -30,6 +30,8 @@ module Control_tb;
   // Instantiate UUT (Unit Under Test)
   Control uut(.*);
 
+initial begin
+
     // Wait 100 ns for global reset to finish
     #100ns;
 

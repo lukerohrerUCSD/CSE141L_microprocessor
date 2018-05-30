@@ -33,8 +33,8 @@ module regFile #(parameter W=8, D=3)(
 	always_comb ReadReg1 = registers[Reg1];
 	always_comb ReadReg2 = registers[Reg2];
 	always_comb ReadR0 = registers[3'b000];
-  always_comb ReadR1 = registers[3'b001];
-  always_comb ReadR6 = registers[3'b110];
+ 	always_comb ReadR1 = registers[3'b001];
+	always_comb ReadR6 = registers[3'b110];
 
 	// sequential (clocked) writes
 	always_ff @ (posedge CLK)

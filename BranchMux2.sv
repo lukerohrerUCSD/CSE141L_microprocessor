@@ -4,30 +4,23 @@
  * Description: This file contains the the plumbing module for Overflow Input Mux
 */
 
-module OvInputMux (
-  input [1:0] OvSel,              // 2-bit Select line or OvInputMux
-  input CLSBOv,                   // Input 0 - CLSBOv
-  input PatrOut,                  // Input 1 - PatrOut
-  input OvOutALU,                 // Input 2 - OvOutputALU
-  output logic OvInputMuxData     // Output 
+module BranchMux2 (
+  input [7:0] Source1,
+  input [7:0] Source2,
+  input Branch,
+  output logic [7:0] BrMux2
   );
 
   // Always do this Combinationally
   always_comb begin
-    case(OvSel)
-      // Select CLSBOv
-      0 : OvInputMuxData = CLSBOv;
+    case(Branch)
 
-      // Select PatrOut
-      1 : OvInputMuxData = PatrOut;
+      // Select Source2 (ReadReg2)
+      0 : BrMux2 = Source2;
 
-      // Select OvOutALU
-      2 : OvInputMuxData = OvOutALU;
+      // Select Source1 (ReadR1)
+      1 : BrMux2 = Source1;
 
-      // Default Case - Do Nothing
-      default: begin
-      OvInputMuxData = 1'b0;
-      end
     endcase
   end
 endmodule

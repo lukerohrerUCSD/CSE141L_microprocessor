@@ -19,7 +19,7 @@ module BranchMux1 (
       0 : BrMux1 = Source2;
 
       // Select Source1 (ReadR0)
-      1 : BrMux2 = Source1;
+      1 : BrMux1 = Source1;
 
     endcase
   end

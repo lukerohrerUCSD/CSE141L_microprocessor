@@ -4,7 +4,6 @@
  * Description: ALU Module
 */
 
-import definitions::*;
 module ALU(
   input [1:0] ALUOp,            // 4 bits input for ALUOp
   input [7:0] ALUSrcA,          // 8 bits data input for ALUSrcA
@@ -13,6 +12,7 @@ module ALU(
 
 //  output logic OvOutALU,        // 1 bit Overflow/CarryOut data outut
   output logic [7:0] Result     // 8 bits Result from ALU data output
+  output logic [1:0] Zero	// 1 bit output 
 );
 
 //  ALUOp_mne op_name;            // ALU Operation Menmonic
@@ -40,7 +40,9 @@ module ALU(
           3 : begin
             Result = ALUSrcA - ALUSrcB;
           end
-    endcase
+      endcase
+  end
+
 endmodule
 
 
