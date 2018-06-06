@@ -20,7 +20,26 @@ module Shift (
 
           // shift if 1
           1 : begin
-            Result = Source << 1;
+
+		case(Shamt)
+		    3'b000:
+			Result = Source << 0;
+		    3'b001:
+			Result = Source << 1;
+		    3'b010:
+			Result = Source << 2;
+		    3'b011:
+			Result = Source << 3;
+		    3'b100:
+			Result = Source >> 0;
+		    3'b101:
+			Result = Source >> 1;
+		    3'b110:
+			Result = Source >> 2;
+		    3'b111:
+			Result = Source >> 3;
+		endcase
+           
           end
       endcase
   end
