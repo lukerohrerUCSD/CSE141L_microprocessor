@@ -13,6 +13,7 @@ module TopLevel_tb;
 
   // DUT Output Drivers
   wire halt;
+  wire done;
 
   // Instantiate the Unit Under Test  (UUT)
   TopLevel uut(.*);
@@ -47,7 +48,7 @@ module TopLevel_tb;
     //$display("DataMem Location 7: %h", uut.DataRAM_module.my_memory[7]);
 
     // For testing Program19.s
-    $display("DataMem Location 127: %h", uut.DataRAM_module.my_memory[127]);
+    //$display("DataMem Location 127: %h", uut.DataRAM_module.my_memory[127]);
 
     // Display InstrCount
     $display("Dynamic Instruction Count: %d", uut.InstrCount);

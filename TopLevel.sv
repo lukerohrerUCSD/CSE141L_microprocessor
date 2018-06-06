@@ -7,7 +7,8 @@
 module TopLevel(
   input start,
   input [7:0] start_addr,
-  input CLK );
+  input CLK,
+  output logic done );
 
   // Insruction Fetch Output wires
   wire [7:0] PC;
@@ -179,12 +180,13 @@ module TopLevel(
     .WMux(writeMuxData)
   );
 
+  always_comb 
+    done = &PC[7:0];
 
-  always@(posedge CLK)
-  if (start == 1)
-      InstrCount <= 0;
-  else
-      InstrCount <= InstrCount+16'd1;
+  //always@(posedge CLK)
+  //if (start == 1)
+      //PC <= 0;
+  
 
 
 endmodule

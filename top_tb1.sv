@@ -72,15 +72,17 @@ module top_tb ()            ;
 // ***** instantiate your own top level design here *****
   TopLevel dut(
     .CLK     (CLK),	   // use your own port names, if different
-    .start    (start),   // some prefer to call this ".reset"
-    .start_addr (start_addr)
+    .start    (init),   // some prefer to call this ".reset"
+    .start_addr (8'h00),
+    .done (done)
   );
 
   initial begin
 //***** pre-load your instruction ROM here	*****
 // you may also pre-load desired constants, etc. into
 //   your data_mem here -- the upper half is reserved for your use
-//    $readmemb("encoder.bin", dut.instr_rom.rom);
+    $readmemb("reg_init.txt", dut.regFile_module.registers);
+    $readmemb("encodeMachine.txt", dut.InstrROM_module.instr_memory);
 //    dut.data_mem.DM[128]=8'hfe;   //whatever constants you want	
     for(lk = 0; lk<42; lk++) begin
       if(str4[lk]==8'h20)
@@ -226,17 +228,18 @@ module top_tb ()            ;
     //dut.data_mem.DM[42] = lfsr_ptrn[0];   // LFSR feedback tap positions (8 possible ptrns)
     //dut.data_mem.DM[43] = LFSR_init[0];   // LFSR starting state (nonzero)
 // load constants, including LUTs, for program 1 here
-    $display("lfsr_init[0]=%h,dut.data_mem.DM[43]=%h",LFSR_init[0],dut.DataRAM_module.my_memory[43]);
+    $display("lfsr_init[0]=%h,dut.DataRAM_module.my_memory[43]=%h",LFSR_init[0],dut.DataRAM_module.my_memory[43]);
     // $display("%d  %h  %h  %h  %s",i,message[i],msg_padded[i],msg_crypto[i],str[i]);
     #20ns init = 0;
     #60ns;                                // wait for 6 clock cycles of nominal 10ns each
-    wait(done);                           // wait for DUT's done flag to go high
+    //wait(done);                           // wait for DUT's done flag to go high
+    #1000000ns;
     #10ns $display();
     $display("program 1:");
 // ***** reads your results and compares to test bench
 // ***** use your instance name for data memory and its internal core *****
     for(int n=0; n<64; n++)
-	  if(msg_crypto1[n]!=dut.DataRAM_module.my_memory[n+64])
+      if(msg_crypto1[n]!=dut.DataRAM_module.my_memory[n+64])
         $display("%d bench msg: %s %h dut msg: %h  OOPS!",
           n, msg_crypto1[n], msg_crypto1[n], dut.DataRAM_module.my_memory[n+64]);
       else
