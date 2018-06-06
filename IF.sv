@@ -21,7 +21,7 @@ module IF(
 		if (Start)
 			PC <= Start_Addr;
 		// If Branch asserted then add signed Offset to PC
-		else if (Branch)
+		else if (Branch && Zero)
 			PC <= PC + Offset;
 		// Otherwise increment PC by 1
 		else

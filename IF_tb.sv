@@ -9,10 +9,9 @@ module IF_tb;
   // IF DUT Input Drivers
   bit CLK;
   bit Start;
-  bit Halt;
   bit Branch;
-  bit BranchCond;
-  bit [7:0] Offset;
+  bit Zero;
+  bit [5:0] Offset;
   bit [7:0] Start_Addr;
 
   // IF DUT Output Drivers
@@ -29,9 +28,8 @@ module IF_tb;
     .CLK(CLK),
     .Start(Start),
     .Start_Addr(Start_Addr),
-    .Halt(Halt),
     .Branch(Branch),
-    .BranchCond(BranchCond),
+    .Zero(Zero),
     .Offset(Offset),
     .PC(InstrAddressConnector)
   );
@@ -117,21 +115,21 @@ module IF_tb;
     // Offset = 8'd0;
     // #20ns;
 
-    Start = 1;
-    Start_Addr = 8'd10;
-    Halt = 0;
-    Branch = 0;
-    BranchCond = 1;
-    Offset = 0;
-    #20ns;
+    //Start = 1;
+    //Start_Addr = 8'd10;
+    //Halt = 0;
+    //Branch = 0;
+    //BranchCond = 1;
+    //Offset = 0;
+    //#20ns;
 
-    Start = 0;
-    Start_Addr = 8'd0;
-    Halt = 0;
-    Branch = 0;
-    BranchCond = 1;
-    Offset = 8'd15;
-    #20ns;
+    //Start = 0;
+    //Start_Addr = 8'd0;
+    //Halt = 0;
+    //Branch = 0;
+    //BranchCond = 1;
+    //Offset = 8'd15;
+    //#20ns;
 
 
     // End testbench here
