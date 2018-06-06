@@ -11,23 +11,24 @@ module DataRam_tb;
   bit MemRead;
   bit MemWrite;
   
-  bit [7:0] DataSrcA;
-  bit [7:0] DataSrcB;
+  bit [7:0] DataSrc;
+  bit [7:0] Address;
 
   // DUT Output Drivers
-  bit [7:0] DataMemOut;
+  wire [7:0] DataMemOut;
 
   // Instantiate UUT (unit under test)
-  DataRam uut(.*);
+  DataRAM uut(.*);
 
   initial begin
 
     // Initialize Data Memory with data from text file
-    $readmemb("ram_init.txt", uut.data_memory);
+    $readmemb("ram_init.txt", uut.my_memory);
 	  $display("DataRam data memory");
-	  for (int i = 0; i < 10; i = i + 1)
-		  $display("%d:%b", i, uut.data_memory[i]);
+	  for (int i = 0; i < 255; i = i + 1)
+		  $display("%d:%b", i, uut.my_memory[i]);
 
+/*
     // Wait 100ns for global reset to finish
     #100ns;
 
@@ -43,7 +44,7 @@ module DataRam_tb;
     DataSrcA = 8'b00000001;
     DataSrcB = 8'b00000011;
     #20ns;
-
+*/
     // End the Test
     #20ns $stop;
 
