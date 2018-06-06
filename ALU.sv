@@ -15,30 +15,31 @@ module ALU(
   output logic Zero	// 1 bit output 
 );
 
-//  ALUOp_mne op_name;            // ALU Operation Menmonic
-
-  logic [8:0] tempResult;       // 9 bit Temp Result (used to capture overflow)
 
   always_comb begin
       case(ALUOp)
           //Bitwise And Operation
           2'b00 : begin
             Result = ALUSrcA & ALUSrcB;
+	    Zero = (Result == 8'h00);
           end
 
           //Add Operation (unsigned)
           2'b01 : begin
             Result = ALUSrcA + ALUSrcB;
+	    Zero = (Result == 8'h00);
           end
 
           //XOR Operation
           2'b10 : begin
             Result = ALUSrcA ^ ALUSrcB;
+	    Zero = (Result == 8'h00);
           end
 
           //Subtraction Operation (unsigned)
           2'b11 : begin
             Result = ALUSrcA - ALUSrcB;
+   	    Zero = (Result == 8'h00);
           end
       endcase
   end
