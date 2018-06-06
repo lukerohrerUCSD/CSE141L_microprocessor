@@ -22,22 +22,22 @@ module ALU(
   always_comb begin
       case(ALUOp)
           //Bitwise And Operation
-          0 : begin
+          2'b00 : begin
             Result = ALUSrcA & ALUSrcB;
           end
 
           //Add Operation (unsigned)
-          1 : begin
+          2'b01 : begin
             Result = ALUSrcA + ALUSrcB;
           end
 
           //XOR Operation
-          2 : begin
+          2'b10 : begin
             Result = ALUSrcA ^ ALUSrcB;
           end
 
           //Subtraction Operation (unsigned)
-          3 : begin
+          2'b11 : begin
             Result = ALUSrcA - ALUSrcB;
           end
       endcase
