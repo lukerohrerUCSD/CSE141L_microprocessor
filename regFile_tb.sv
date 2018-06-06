@@ -11,20 +11,18 @@ module regFile_tb;
 
 	// DUT input drivers
 	bit CLK;
-	bit RegWrite;
-	bit ClearReg;
-	bit IncReg;
-	bit OvToReg;
-	bit [DT-1:0] srcA;
-	bit [DT-1:0] srcB;
-	bit [DT-1:0] writeReg;
-	bit [WT-1:0] writeValue;
-	bit ovValue;
+	bit WriteReg;
+	bit [DT-1:0] Reg1;
+	bit [DT-1:0] Reg2;
+	bit [DT-1:0] WReg;
+	bit [WT-1:0] WriteValue;
 
 	// DUT output drivers
-	wire [WT-1:0] ReadA;
-	wire [WT-1:0] ReadB;
+	wire [WT-1:0] ReadReg1;
+	wire [WT-1:0] ReadReg2;
 	wire [WT-1:0] ReadR0;
+	wire [WT-1:0] ReadR1;
+	wire [WT-1:0] ReadR6;
 
 	// Instantiate UUT (Unit Under Test)
 	regFile #(.W(WT), .D(DT)) uut(.*);
@@ -33,68 +31,32 @@ module regFile_tb;
 	// Wait 100ns for global reset to finish
 	#100ns;
 
-	// Set srcA and srcB
-	srcA = 3'b001;
-	srcB = 3'b010;
-
-	// Write some random data to $r2, to check ReadB
-	uut.registers[2] = 8'hDD;
+	// Set Reg1 and Reg2
+	Reg1 = 3'b001;
+	Reg2 = 3'b010;
 
 	// Check if writing to register works
-	writeReg = 3'b001;
-	writeValue = 8'hFE;
-	ovValue = 0;
-	RegWrite = 1;
-	ClearReg = 0;
-	IncReg = 0;
-	OvToReg = 0;
+	WReg = 3'b001;
+	WriteValue = 8'hFE;
+	WriteReg = 1;
 	#20ns;
 
 	// Check if writing without RegWrite has no impact
-	writeReg = 3'b001;
-	writeValue = 8'hAA;
-	ovValue = 0;
-	RegWrite = 0;
-	ClearReg = 0;
-	IncReg = 0;
-	OvToReg = 0;
+	WReg = 3'b001;
+	WriteValue = 8'hAA;
+	WriteReg = 0;
 	#20ns;
 
-	// Check if increment register works
-	IncReg = 1;
-	writeReg = 3'b001;
-	RegWrite = 1;
-	ClearReg = 0;
-	IncReg = 1;
-	OvToReg = 0;
-	#20ns
-
-	// Check if clear register works
-	writeReg = 3'b001;
-	RegWrite = 1;
-	ClearReg = 1;
-	IncReg = 0;
-	OvToReg = 0;
-	#20ns;
-
-	// Check if getOv functionality works
-	writeReg = 3'b001;
-	ovValue = 1;
-	RegWrite = 1;
-	ClearReg = 0;
-	IncReg = 0;
-	OvToReg = 1;
-	#20ns;
 
 	// Write to R0, and see if ReadR0 is working
-	writeReg = 3'b000;
+/*`	writeReg = 3'b000;
 	writeValue = 8'hCC;
 	ovValue = 0;
 	RegWrite = 1;
 	ClearReg = 0;
 	IncReg = 0;
 	OvToReg = 0;
-
+*/
 	// End the testbench here
 	#20ns $stop;
 	end

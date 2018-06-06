@@ -6,7 +6,7 @@
 
 module regFile #(parameter W=8, D=3)(
   input CLK,
-	input WriteReg,
+  input WriteReg,
   input [D-1:0] Reg1,
   input [D-1:0] Reg2,
   input [D-1:0] WReg,
@@ -14,7 +14,7 @@ module regFile #(parameter W=8, D=3)(
 
   output logic [W-1:0] ReadReg1,
   output logic [W-1:0] ReadReg2,
-	output logic [W-1:0] ReadR0,
+  output logic [W-1:0] ReadR0,
   output logic [W-1:0] ReadR1,
   output logic [W-1:0] ReadR6
 );
@@ -26,7 +26,7 @@ module regFile #(parameter W=8, D=3)(
 
     // For Program19
     // uncomment below line when we have machine code ready
-    //$readmemb("ENCODE.txt", registers);
+    $readmemb("reg_init.txt", registers);
   end
 
 	// Combinational reads
