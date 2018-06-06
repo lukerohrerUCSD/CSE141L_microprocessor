@@ -40,6 +40,8 @@ module TopLevel_tb;
 
     #200000ns;
 
+    //wait(done);
+
     // For testing Program17.s
     //$display("DataMem Location 4: %h", uut.DataRAM_module.my_memory[4]);
     //$display("DataMem Location 5: %h", uut.DataRAM_module.my_memory[5]);

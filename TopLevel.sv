@@ -8,7 +8,7 @@ module TopLevel(
   input start,
   input [7:0] start_addr,
   input CLK,
-  output logic done );
+  output logic done);
 
   // Insruction Fetch Output wires
   wire [7:0] PC;
@@ -31,10 +31,10 @@ module TopLevel(
   wire[1:0] ALUOp;
 
   // Register File Input & Output Wires
-  wire [2:0] reg1;      //in
-  wire [2:0] reg2;      //in
-  wire [2:0] regW;      //in
-  wire [7:0] writeData; //in
+  //wire [2:0] reg1;      //in
+  //wire [2:0] reg2;      //in
+  //wire [2:0] regW;      //in
+  //wire [7:0] writeData; //in
   wire [7:0] readReg1;
   wire [7:0] readReg2;
   wire [7:0] readR0;    //register 0
@@ -105,7 +105,7 @@ module TopLevel(
     .Reg1(InstrOut[5:3]),
     .Reg2(InstrOut[2:0]),
     .WReg(InstrOut[5:3]),
-    .WriteValue(writeData),
+    .WriteValue(ALUOut),
     .ReadReg1(readReg1),
     .ReadReg2(readReg2),
     .ReadR0(readR0),
@@ -181,11 +181,13 @@ module TopLevel(
   );
 
   always_comb 
-    done = &PC[7:0];
+    done = &InstrCount[7:0];
 
-  //always@(posedge CLK)
-  //if (start == 1)
-      //PC <= 0;
+  always_ff@(posedge CLK)
+  if (start == 1)
+      InstrCount <= 0;
+  else 
+      InstrCount <= InstrCount + 16'h01;
   
 
 
