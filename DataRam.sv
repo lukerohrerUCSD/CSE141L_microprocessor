@@ -27,7 +27,8 @@ module DataRAM (DataSrc, Address, DataMemOut, MemRead, MemWrite, CLK);
   always_comb
     if(MemRead) begin
       DataMemOut = my_memory[Address];
-		end else
+    end 
+    else
       DataMemOut = 8'b0;
 
   // If MemWrite and posedge CLK, then write data to memory

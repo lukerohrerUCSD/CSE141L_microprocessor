@@ -24,26 +24,31 @@ module DataRam_tb;
 
     // Initialize Data Memory with data from text file
     $readmemb("ram_init.txt", uut.my_memory);
-	  $display("DataRam data memory");
-	  for (int i = 0; i < 255; i = i + 1)
+/*	  $display("DataRam data memory");
+	  for (int i = 0; i < 10; i = i + 1)
 		  $display("%d:%b", i, uut.my_memory[i]);
+*/
 
-/*
     // Wait 100ns for global reset to finish
     #100ns;
 
     // Check if reading from DataRam works, getting the value store at A(1)
     MemRead = 1;
     MemWrite = 0;
-    DataSrcA = 8'b00000001;
-    #20ns;
+    DataSrc = 8'b00000001;
+    Address = 8'b00000010;
+    #200ns;
 
     // Check if writing to DataRam works, writting value A(1) to address B(3)
     MemRead = 0;
     MemWrite = 1;
-    DataSrcA = 8'b00000001;
-    DataSrcB = 8'b00000011;
-    #20ns;
+    DataSrc = 8'b11111111;
+    Address = 8'b00000001;
+    #200ns;
+/*
+    $display("DataRam data memory AFTER write");
+    for (int i = 0; i < 10; i = i + 1)
+	$display("%d:%b", i, uut.my_memory[i]);
 */
     // End the Test
     #20ns $stop;
