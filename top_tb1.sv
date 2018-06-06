@@ -216,17 +216,17 @@ module top_tb ()            ;
 // ***** load operands into your data memory *****
 // ***** use your instance name for data memory and its internal core *****
     for(int m=0; m<41; m++)
-    	dut.DataRAM.DM[m] = str1[m];       // copy original string into device's data memory[0:40]
-    	dut.DataRAM.DM[41] = pre_length[0];  // number of bytes preceding message
-    	dut.DataRAM.DM[42] = lfsr_ptrn[0];   // LFSR feedback tap positions (8 possible ptrns)
-    	dut.DataRAM.DM[43] = LFSR_init[0];   // LFSR starting state (nonzero)
+    	dut.DataRAM_module.my_memory[m] = str1[m];       // copy original string into device's data memory[0:40]
+    	dut.DataRAM_module.my_memory[41] = pre_length[0];  // number of bytes preceding message
+    	dut.DataRAM_module.my_memory[42] = lfsr_ptrn[0];   // LFSR feedback tap positions (8 possible ptrns)
+    	dut.DataRAM_module.my_memory[43] = LFSR_init[0];   // LFSR starting state (nonzero)
 
-    //dut.data_mem.DM[m] = str1[m];       // copy original string into device's data memory[0:40]
+    //dut.DM[m] = str1[m];       // copy original string into device's data memory[0:40]
     //dut.data_mem.DM[41] = pre_length[0];  // number of bytes preceding message
     //dut.data_mem.DM[42] = lfsr_ptrn[0];   // LFSR feedback tap positions (8 possible ptrns)
     //dut.data_mem.DM[43] = LFSR_init[0];   // LFSR starting state (nonzero)
 // load constants, including LUTs, for program 1 here
-    $display("lfsr_init[0]=%h,dut.data_mem.DM[43]=%h",LFSR_init[0],dut.data_mem.DM[43]);
+    $display("lfsr_init[0]=%h,dut.data_mem.DM[43]=%h",LFSR_init[0],dut.DataRAM_module.my_memory[43]);
     // $display("%d  %h  %h  %h  %s",i,message[i],msg_padded[i],msg_crypto[i],str[i]);
     #20ns init = 0;
     #60ns;                                // wait for 6 clock cycles of nominal 10ns each
@@ -236,19 +236,19 @@ module top_tb ()            ;
 // ***** reads your results and compares to test bench
 // ***** use your instance name for data memory and its internal core *****
     for(int n=0; n<64; n++)
-	  if(msg_crypto1[n]!=dut.data_mem.DM[n+64])
+	  if(msg_crypto1[n]!=dut.DataRAM_module.my_memory[n+64])
         $display("%d bench msg: %s %h dut msg: %h  OOPS!",
-          n, msg_crypto1[n], msg_crypto1[n], dut.data_mem.DM[n+64]);
+          n, msg_crypto1[n], msg_crypto1[n], dut.DataRAM_module.my_memory[n+64]);
       else
         $display("%d bench msg: %s %h dut msg: %h",
-          n, msg_crypto1[n], msg_crypto1[n], dut.data_mem.DM[n+64]);
+          n, msg_crypto1[n], msg_crypto1[n], dut.DataRAM_module.my_memory[n+64]);
 
     // run program 2
     init = 1;                          // activate reset
 // ***** load operands into your data memory *****
 // ***** use your instance name for data memory and its internal core *****
     for(int n=64; n<128; n++)
-      dut.data_mem.DM[n] = msg_crypto2[n - 64];
+     dut.DataRAM_module.my_memory[n] = msg_crypto2[n - 64];
 // load new constants into data_mem for program 2 here
     #20ns init = 0;
     #60ns;                             // wait for 6 clock cycles of nominal 10ns each
@@ -258,22 +258,22 @@ module top_tb ()            ;
 // ***** reads your results and compares to test bench
 // ***** use your instance name for data memory and its internal core *****
     for(int n=0; n<41; n++)
-      if(str2[n]!=dut.data_mem.DM[n])
+      if(str2[n]!=dut.DataRAM_module.my_memory[n])
         $display("%d bench msg: %s  %h dut msg: %h  OOPS!",
-          n, str2[n], str2[n], dut.data_mem.DM[n]);
+          n, str2[n], str2[n], dut.DataRAM_module.my_memory[n]);
       else
         $display("%d bench msg: %s  %h dut msg: %h",
-          n, str2[n], str2[n], dut.data_mem.DM[n]);
+          n, str2[n], str2[n], dut.DataRAM_module.my_memory[n]);
 
     // run program 1
     init = 1;
 // ***** load operands into your data memory *****
 // ***** use your instance name for data memory and its internal core *****
     for(int m=0; m<41; m++)
-      dut.data_mem.DM[m] = str3[m];       // copy original string into device's data memory[0:40]
-    dut.data_mem.DM[41] = pre_length[2];  // number of bytes preceding message
-    dut.data_mem.DM[42] = lfsr_ptrn[2];   // LFSR feedback tap positions (8 possible ptrns)
-    dut.data_mem.DM[43] = LFSR_init[2];   // LFSR starting state (nonzero)
+      dut.DataRAM_module.my_memory[m] = str3[m];       // copy original string into device's data memory[0:40]
+      dut.DataRAM_module.my_memory[41] = pre_length[2];  // number of bytes preceding message
+      dut.DataRAM_module.my_memory[42] = lfsr_ptrn[2];   // LFSR feedback tap positions (8 possible ptrns)
+      dut.DataRAM_module.my_memory[43] = LFSR_init[2];   // LFSR starting state (nonzero)
     // $display("%d  %h  %h  %h  %s",i,message[i],msg_padded[i],msg_crypto[i],str[i]);
     #20ns init = 0;
     #60ns;                                // wait for 6 clock cycles of nominal 10ns each
@@ -283,19 +283,19 @@ module top_tb ()            ;
 // ***** reads your results and compares to test bench
 // ***** use your instance name for data memory and its internal core *****
     for(int n=0; n<64; n++)
-	  if(msg_crypto3[n]!=dut.data_mem.DM[n+64])
+	  if(msg_crypto3[n]!=dut.DataRAM_module.my_memory[n+64])
         $display("%d bench msg: %s  %h dut msg: %h   OOPS!",
-          n, msg_crypto3[n], msg_crypto3[n], dut.data_mem.DM[n+64]);
+          n, msg_crypto3[n], msg_crypto3[n],dut.DataRAM_module.my_memory[n+64]);
 	  else
         $display("%d bench msg: %s  %h dut msg: %h",
-          n, msg_crypto3[n], msg_crypto3[n], dut.data_mem.DM[n+64]);
+          n, msg_crypto3[n], msg_crypto3[n],dut.DataRAM_module.my_memory[n+64]);
 
     // run program 3
     init = 1;                          // activate reset
 // ***** load operands into your data memory *****
 // ***** use your instance name for data memory and its internal core *****
     for(int n=64; n<128; n++)
-      dut.data_mem.DM[n] = msg_crypto4[n - 64];
+     dut.DataRAM_module.my_memory[n] = msg_crypto4[n - 64];
     #20ns init = 0;
     #60ns;                             // wait for 6 clock cycles of nominal 10ns each
     wait(done);                        // wait for DUT's done flag to go high
@@ -304,12 +304,12 @@ module top_tb ()            ;
 // ***** reads your results and compares to test bench
 // ***** use your instance name for data memory and its internal core *****
     for(int n=0; n<41-spaces; n++)
-      if(str4[n+lk]!=dut.data_mem.DM[n])
+      if(str4[n+lk]!=dut.DataRAM_module.my_memory[n])
         $display("%d bench msg: %s  %h dut msg: %h   OOPS!",
-          n, str4[n+lk], str4[n+lk], dut.data_mem.DM[n]);
+          n, str4[n+lk], str4[n+lk],dut.DataRAM_module.my_memory[n]);
 	  else
         $display("%d bench msg: %s  %h dut msg: %h",
-          n, str4[n+lk], str4[n+lk], dut.data_mem.DM[n]);
+          n, str4[n+lk], str4[n+lk],dut.DataRAM_module.my_memory[n]);
     #20ns $stop;
   end
 
