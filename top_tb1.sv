@@ -233,8 +233,8 @@ module top_tb ()            ;
     #20ns init = 0;
     #60ns;                                // wait for 6 clock cycles of nominal 10ns each
     //wait(done);                           // wait for DUT's done flag to go high
-    #1000000ns;
-    #10ns $display();
+    #10000ns;
+    //#10ns $display();
     $display("program 1:");
 // ***** reads your results and compares to test bench
 // ***** use your instance name for data memory and its internal core *****
@@ -246,7 +246,8 @@ module top_tb ()            ;
         $display("%d bench msg: %s %h dut msg: %h",
           n, msg_crypto1[n], msg_crypto1[n], dut.DataRAM_module.my_memory[n+64]);
 
-    // run program 2
+  $stop;
+// run program 2
     init = 1;                          // activate reset
 // ***** load operands into your data memory *****
 // ***** use your instance name for data memory and its internal core *****

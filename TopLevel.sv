@@ -105,7 +105,7 @@ module TopLevel(
     .Reg1(InstrOut[5:3]),
     .Reg2(InstrOut[2:0]),
     .WReg(InstrOut[5:3]),
-    .WriteValue(ALUOut),
+    .WriteValue(writeMuxData),
     .ReadReg1(readReg1),
     .ReadReg2(readReg2),
     .ReadR0(readR0),
@@ -181,7 +181,7 @@ module TopLevel(
   );
 
   always_comb 
-    done = &InstrCount[7:0];
+    done = &PC[7:0];
 
   always_ff@(posedge CLK)
   if (start == 1)

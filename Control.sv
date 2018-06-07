@@ -22,7 +22,7 @@ module Control (
   always_comb begin
       case(Opcode)
           //store byte (sb)
-          0 : begin
+          3'b000 : begin
             Branch = 0;
             Load = 0;
             Shift = 0;
@@ -34,7 +34,7 @@ module Control (
           end
           
           //load byte (lb)
-          1 : begin
+          3'b001 : begin
             Branch = 0;
             Load = 1;
             Shift = 0;
@@ -46,7 +46,7 @@ module Control (
           end
 
           //add (add)
-          2 : begin
+          3'b010 : begin
             Branch = 0;
             Load = 0;
             Shift = 0;
@@ -58,7 +58,7 @@ module Control (
           end
 
           //and (and)
-          3 : begin
+          3'b011 : begin
             Branch = 0;
             Load = 0;
             Shift = 0;
@@ -70,7 +70,7 @@ module Control (
           end
 
           //xor (xor)
-          4 : begin
+          3'b100 : begin
             Branch = 0;
             Load = 0;
             Shift = 0;
@@ -82,7 +82,7 @@ module Control (
           end
 
           //copy (cpy)
-          5 : begin
+          3'b101 : begin
             Branch = 0;
             Load = 0;
             Shift = 0;
@@ -94,7 +94,7 @@ module Control (
           end
 
           //shift logical (sl)
-          6 : begin
+          3'b110 : begin
             Branch = 0;
             Load = 0;
             Shift = 1;
@@ -106,7 +106,7 @@ module Control (
           end
 
           //branch not equal (bne)
-          7 : begin
+          3'b111 : begin
             Branch = 1;
             Load = 0;
             Shift = 0;

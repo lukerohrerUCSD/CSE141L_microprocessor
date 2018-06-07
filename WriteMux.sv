@@ -16,10 +16,10 @@ module WriteMux (
     case(Load)
 
       // Select Source2 (ReadReg1)
-      0 : WMux = Source2;
+      0 : WMux = Source1;
 
       // Select Source1 (ReadR0)
-      1 : WMux = Source1;
+      1 : WMux = Source2;
 
     endcase
   end

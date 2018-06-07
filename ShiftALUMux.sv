@@ -15,11 +15,11 @@ module ShiftALUMux (
   always_comb begin
     case(Shift)
 
-      // Select Source1 (SAMux)
-      0 : SAMux = Source1;
+      // Select Source2 (SAMux)
+      0 : SAMux = Source2;
 
-      // Select Source2 (DataMemOut)
-      1 : SAMux = Source2;
+      // Select Source1 (ALUOut)
+      1 : SAMux = Source1;
 
     endcase
   end

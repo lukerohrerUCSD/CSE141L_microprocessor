@@ -27,6 +27,7 @@ module regFile #(parameter W=8, D=3)(
     // For Program19
     // uncomment below line when we have machine code ready
     $readmemb("reg_init.txt", registers);
+    $display("LOADED INITIAL REGISTER VALUES");
   end
 
 	// Combinational reads

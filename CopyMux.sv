@@ -15,11 +15,11 @@ module CopyMux (
   always_comb begin
     case(Copy)
 
-      // Select Source2 (BrMux2)
-      0 : CpyMux = Source2;
+      // Select Source1 (BrMux2)
+      0 : CpyMux = Source1;
 
-      // Select Source1 (0)
-      1 : CpyMux = Source1;
+      // Select Source2 (0)
+      1 : CpyMux = Source2;
 
     endcase
   end
