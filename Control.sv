@@ -89,7 +89,7 @@ module Control (
             ReadMem = 0;
 	    WriteMem = 0;
             Copy = 1;
-            ALUOp = 00;
+            ALUOp = 01;
             WriteReg = 1;
           end
 

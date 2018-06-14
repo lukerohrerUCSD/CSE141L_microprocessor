@@ -2,7 +2,9 @@ cpy $t0 $t7
 sl $t0 L 3
 cpy $t6 $t0
 sl $t6 L 2
-add $t6 $t1
+add $t6 $t0
+sl $t0 R 2
+sl $t0 R 2
 add $t6 $t7
 lb $t1 $t6
 add $t6 $t7
@@ -35,7 +37,7 @@ and $t3 $t7
 sl $t4 L 1
 add $t4 $t3
 add $t0 $t7
-bne 001100  back to line 12
+bne 001110  back to PC=14
 cpy $t2 $t7
 sl $t2 L 3
 cpy $t6 $t2
@@ -71,7 +73,7 @@ and $t3 $t7
 sl $t4 L 1
 add $t4 $t3
 add $t0 $t7
-bne 101111  back to line 47*
+bne 110001  back to line 49
 cpy $t1 $t7
 cpy $t2 $t7
 sl $t2 L 1

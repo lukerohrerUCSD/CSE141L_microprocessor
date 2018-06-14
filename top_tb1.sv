@@ -71,7 +71,7 @@ module top_tb ()            ;
 
 // ***** instantiate your own top level design here *****
   TopLevel dut(
-    .CLK     (CLK),	   // use your own port names, if different
+    .CLK     (clk),	   // use your own port names, if different
     .start    (init),   // some prefer to call this ".reset"
     .start_addr (8'h00),
     .done (done)
@@ -228,12 +228,16 @@ module top_tb ()            ;
     //dut.data_mem.DM[42] = lfsr_ptrn[0];   // LFSR feedback tap positions (8 possible ptrns)
     //dut.data_mem.DM[43] = LFSR_init[0];   // LFSR starting state (nonzero)
 // load constants, including LUTs, for program 1 here
-    $display("lfsr_init[0]=%h,dut.DataRAM_module.my_memory[43]=%h",LFSR_init[0],dut.DataRAM_module.my_memory[43]);
+    for(int m=0; m<41; m++)
+    $display("message in my memory is %s",dut.DataRAM_module.my_memory[m]);
+    $display("pre_length[0]=%d,dut.DataRAM_module.my_memory[41]=%d",pre_length[0],dut.DataRAM_module.my_memory[41]);
+    $display("lfsr_ptrn[0]=%b,dut.DataRAM_module.my_memory[42]=%b",lfsr_ptrn[0],dut.DataRAM_module.my_memory[42]);
+    $display("lfsr_init[0]=%b,dut.DataRAM_module.my_memory[43]=%b",LFSR_init[0],dut.DataRAM_module.my_memory[43]);
     // $display("%d  %h  %h  %h  %s",i,message[i],msg_padded[i],msg_crypto[i],str[i]);
     #20ns init = 0;
     #60ns;                                // wait for 6 clock cycles of nominal 10ns each
-    //wait(done);                           // wait for DUT's done flag to go high
-    #10000ns;
+    wait(done);                           // wait for DUT's done flag to go high
+    //#10000ns;
     //#10ns $display();
     $display("program 1:");
 // ***** reads your results and compares to test bench

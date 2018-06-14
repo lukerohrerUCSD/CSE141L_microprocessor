@@ -16,6 +16,9 @@ module InstrROM (
   initial begin
     $readmemb("encodeMachine.txt", instr_memory);
     $display("LOADED INSTRUCTIONS");
+	
+    //IF WE WANT TO DO DECRYPT, LOAD ALL INSTRUCTION AT START (concat all .txt files into one, read that in)
+
   end
 
   // Combinational read output for instruction

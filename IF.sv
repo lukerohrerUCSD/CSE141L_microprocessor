@@ -18,15 +18,26 @@ module IF(
 	// Sequentially (clocked) write of PC
 	always_ff @(posedge CLK)
 		// If Start asserted, then set PC to Start Address
-		if (Start)
+		if (Start) 
+			begin
+			//$display("setting PC = %d to 0", PC);
 			PC <= Start_Addr;
+			end		
 		// If Branch asserted then add signed Offset to PC
-		else if (Branch && Zero && PC[7:0] != 8'b01001001)
-			PC <= PC << 6 >> 6 + Offset;
+		else if (Branch && !Zero && PC[7:0] != 8'b01001011) 
+			begin
+			//$display("doing a branch (space characters)");
+			//$display("PC before = %d, offset = $b", PC, Offset);
+			PC <= ((PC >> 6) << 6) + Offset;
 			//PC <= PC + Offset;
-		else if (Branch && Zero && PC[7:0] == 8'b01001001)
-			PC <= PC << 7 >> 7 + Offset;
+			end		
+		else if (Branch && !Zero && PC[7:0] == 8'b01001011)
+			begin
+			//$display("doing a branch (message characters)");
+			//$display("PC before = %d, offset = $b", PC, Offset);
+			PC <= ((PC >> 7) << 7) + Offset;
 			//PC <= PC + Offset;
+			end
 		// Otherwise increment PC by 1
 		else
 			PC <= PC + 8'd1;

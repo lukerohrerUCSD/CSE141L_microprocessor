@@ -131,7 +131,7 @@ module TopLevel(
 
   // CopyMux Module Instance
   CopyMux CopyMux_module (
-    .Source1(brMux2Data),
+    .Source1(brMux1Data),
     .Source2(8'b00000000),
     .Copy(copy),
     .CpyMux(cpyMuxData)
@@ -140,8 +140,8 @@ module TopLevel(
   // ALU Module Instance
   ALU ALU_module (
     .ALUOp(ALUOp),
-    .ALUSrcA(brMux1Data),
-    .ALUSrcB(cpyMuxData),
+    .ALUSrcA(cpyMuxData),
+    .ALUSrcB(brMux2Data),
     .Result(ALUOut),
     .Zero(zero)
   );
@@ -181,7 +181,8 @@ module TopLevel(
   );
 
   always_comb 
-    done = &PC[7:0];
+    done = PC[7:0] == 8'b01110111;
+    // IF WE WANT TO DO DECRYPT --> done flag needs to be turned on after all 3 programs are finished
 
   always_ff@(posedge CLK)
   if (start == 1)
