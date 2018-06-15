@@ -116,4 +116,4 @@ and $t3 $t7
 sl $t4 L 1
 add $t4 $t3
 add $t0 $t7
-bne 011011  back to line 91
+bne 011101  back to PC=93
