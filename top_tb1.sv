@@ -83,6 +83,8 @@ module top_tb ()            ;
 //   your data_mem here -- the upper half is reserved for your use
     $readmemb("reg_init.txt", dut.regFile_module.registers);
     $readmemb("encodeMachine.txt", dut.InstrROM_module.instr_memory);
+    $readmemb("ram_init.txt", dut.DataRAM_module.my_memory);
+
 //    dut.data_mem.DM[128]=8'hfe;   //whatever constants you want	
     for(lk = 0; lk<42; lk++) begin
       if(str4[lk]==8'h20)
@@ -228,11 +230,17 @@ module top_tb ()            ;
     //dut.data_mem.DM[42] = lfsr_ptrn[0];   // LFSR feedback tap positions (8 possible ptrns)
     //dut.data_mem.DM[43] = LFSR_init[0];   // LFSR starting state (nonzero)
 // load constants, including LUTs, for program 1 here
-    for(int m=0; m<41; m++)
-    $display("message in my memory is %s",dut.DataRAM_module.my_memory[m]);
-    $display("pre_length[0]=%d,dut.DataRAM_module.my_memory[41]=%d",pre_length[0],dut.DataRAM_module.my_memory[41]);
-    $display("lfsr_ptrn[0]=%b,dut.DataRAM_module.my_memory[42]=%b",lfsr_ptrn[0],dut.DataRAM_module.my_memory[42]);
-    $display("lfsr_init[0]=%b,dut.DataRAM_module.my_memory[43]=%b",LFSR_init[0],dut.DataRAM_module.my_memory[43]);
+
+	//MY TEST PRINT STATEMENTS
+    //for(int m=0; m<8; m++)
+    //  $display("regFile value at %d is %b",m,dut.regFile_module.registers[m]);
+
+    //for(int m=0; m<41; m++)
+    //$display("message in my memory is %s",dut.DataRAM_module.my_memory[m]);
+    //$display("pre_length[0]=%d,dut.DataRAM_module.my_memory[41]=%d",pre_length[0],dut.DataRAM_module.my_memory[41]);
+    //$display("lfsr_ptrn[0]=%b,dut.DataRAM_module.my_memory[42]=%b",lfsr_ptrn[0],dut.DataRAM_module.my_memory[42]);
+    //$display("lfsr_init[0]=%b,dut.DataRAM_module.my_memory[43]=%b",LFSR_init[0],dut.DataRAM_module.my_memory[43]);
+
     // $display("%d  %h  %h  %h  %s",i,message[i],msg_padded[i],msg_crypto[i],str[i]);
     #20ns init = 0;
     #60ns;                                // wait for 6 clock cycles of nominal 10ns each
@@ -250,7 +258,7 @@ module top_tb ()            ;
         $display("%d bench msg: %s %h dut msg: %h",
           n, msg_crypto1[n], msg_crypto1[n], dut.DataRAM_module.my_memory[n+64]);
 
-  $stop;
+  //$stop;
 // run program 2
     init = 1;                          // activate reset
 // ***** load operands into your data memory *****
@@ -272,10 +280,12 @@ module top_tb ()            ;
       else
         $display("%d bench msg: %s  %h dut msg: %h",
           n, str2[n], str2[n], dut.DataRAM_module.my_memory[n]);
-
+    //$stop;
     // run program 1
     init = 1;
 // ***** load operands into your data memory *****
+   $readmemb("reg_init.txt", dut.regFile_module.registers);
+   $readmemb("ram_init.txt", dut.DataRAM_module.my_memory);
 // ***** use your instance name for data memory and its internal core *****
     for(int m=0; m<41; m++)
       dut.DataRAM_module.my_memory[m] = str3[m];       // copy original string into device's data memory[0:40]
@@ -284,6 +294,18 @@ module top_tb ()            ;
       dut.DataRAM_module.my_memory[43] = LFSR_init[2];   // LFSR starting state (nonzero)
     // $display("%d  %h  %h  %h  %s",i,message[i],msg_padded[i],msg_crypto[i],str[i]);
     #20ns init = 0;
+
+	//MY TEST PRINTS
+   //for(int m=0; m<8; m++)
+   // $display("regFile value at %d is %b",m,dut.regFile_module.registers[m]);
+
+   //for(int m=0; m<41; m++)
+   // $display("message in my memory at %d is %s",m,dut.DataRAM_module.my_memory[m]);
+   // $display("pre_length[2]=%d,dut.DataRAM_module.my_memory[41]=%d",pre_length[2],dut.DataRAM_module.my_memory[41]);
+   // $display("lfsr_ptrn[2]=%b,dut.DataRAM_module.my_memory[42]=%b",lfsr_ptrn[2],dut.DataRAM_module.my_memory[42]);
+   // $display("lfsr_init[2]=%b,dut.DataRAM_module.my_memory[43]=%b",LFSR_init[2],dut.DataRAM_module.my_memory[43]);
+   // $display("my memory[44]=%b",dut.DataRAM_module.my_memory[44]);
+
     #60ns;                                // wait for 6 clock cycles of nominal 10ns each
     wait(done);                           // wait for DUT's done flag to go high
     #10ns $display();
@@ -298,6 +320,7 @@ module top_tb ()            ;
         $display("%d bench msg: %s  %h dut msg: %h",
           n, msg_crypto3[n], msg_crypto3[n],dut.DataRAM_module.my_memory[n+64]);
 
+    //$stop;
     // run program 3
     init = 1;                          // activate reset
 // ***** load operands into your data memory *****

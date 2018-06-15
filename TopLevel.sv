@@ -182,8 +182,7 @@ module TopLevel(
 
   always_comb 
     done = PC[7:0] == 8'b01110111;
-    // IF WE WANT TO DO DECRYPT --> done flag needs to be turned on after all 3 programs are finished
-
+ 
   always_ff@(posedge CLK)
   if (start == 1)
       InstrCount <= 0;
